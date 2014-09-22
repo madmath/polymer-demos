@@ -1,0 +1,90 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<!-- Polymer component imports. -->
+<link rel="import" href="/bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="/bower_components/core-localstorage/core-localstorage.html">
+<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/bower_components/font-roboto/roboto.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-shadow/paper-shadow.html">
+
+<link rel="import" href="frequency-counter.html">
+
+<polymer-element name="demo-page" attributes="company">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+        background-color: #E5E5E5;
+        font-family: 'RobotoDraft', sans-serif;
+      }
+      core-header-panel {
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      #card {
+        padding: 20px;
+        background: white;
+        width: 500px;
+        min-height: 300px;
+      }
+      core-toolbar {
+        background: #DB0000;
+        color: white;
+      }
+      .container {
+        width: 80%;
+        margin: 50px auto;
+      }
+      .fadeopacity {
+        transition: opacity ease-in-out 0.38s;
+      }
+      footer {
+        text-align: center;
+        margin-left: auto;
+        font-size: small;
+      }
+      footer a {
+        color: #4285f4;
+        text-decoration: none;
+      }
+    </style>
+    <core-header-panel>
+      <core-toolbar>
+        <span class="fadeopacity" flex="">Demo for {{ company }}</span>
+      </core-toolbar>
+
+      <div class="container fadeopacity" layout vertical center>
+        <div id="card" layout vertical>
+          <paper-shadow z="3"></paper-shadow>
+
+          <!-- Actual demo here. -->
+          <input placeholder="Type something..."  layout vertical value="{{ expression }}"></input>
+          <frequency-counter expression="{{ expression }}"></frequency-counter>
+          <core-localstorage name="demo-page-storage" value="{{ expression }}"></core-localstorage>
+        </div>
+      </div>
+
+      <footer>
+        <p>An demo built with <a href="http://polymer-project.org">Polymer</a> (<a href="https://github.com/madmath/polymer-demos">Source code</a>).<p>
+        <p><a href="https://twitter.com/madmath">@madmath</a>
+      </footer>
+    </core-header-panel>
+  </template>
+
+  <script>
+    Polymer('demo-page', {
+      company: 'Company X',
+    });
+
+  </script>
+
+</polymer-element>

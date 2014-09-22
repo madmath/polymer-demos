@@ -1,0 +1,48 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<polymer-element name="frequency-counter" attributes="expression">
+  <template>
+    <style>
+      :host {
+        margin-top: 40px;
+      }
+    </style>
+    <template repeat="{{ word in _tokenizeWords(expression) }}">
+        <span style="font-size: calc(13px + 4 * {{ tokenCounts[word] }}px);">{{ word }}</span>
+    </template>
+  </template>
+
+  <script>
+    Polymer('frequency-counter', {
+      expression: '',
+      tokenCounts: null,
+
+      _tokenizeWords: function(expression) {
+        var split = expression.trim().split(' ');
+        if (!split.length)
+          return [];
+
+        // Count the occurrences of each word.
+        this.tokenCounts = {};
+        split.forEach(function(word) {
+          if (!word)
+            return;
+
+          if (!this.tokenCounts[word]) {
+            this.tokenCounts[word] = 1;
+          } else {
+            this.tokenCounts[word] += 1;
+          }
+        }.bind(this));
+
+        // Sort by the number of occurrences.
+        var sortedWords = Object.keys(this.tokenCounts).sort(function(a, b) {
+          return this.tokenCounts[b] - this.tokenCounts[a];
+        }.bind(this));
+        return sortedWords;
+      }
+    });
+
+  </script>
+
+</polymer-element>
